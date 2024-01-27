@@ -52,7 +52,7 @@ Find more examples at https://zxing.appspot.com/generator/.
 ### WiFi-Code
     {
         "data": "WIFI:S:Some_SSID;T:WPA;P:Some_Passphrase;;",
-        "errorLevel": "HIGT",
+        "errorLevel": "HIGH",
         "imageSize": 400
     }
 
@@ -76,10 +76,24 @@ https://hub.docker.com/r/fehrenbacher/qrcode-server
 
 A valid jar must exist in the target folder before building a docker image.
 
-1. Build the image with the following command:
+Build the image with the following command:
 
-   docker image build -t   .
+    docker image build -t .
 
-2. If image is ready, start the server with:
+If image is ready, start the server with:
 
-   docker run --rm -p 8080:8080 -p 80:8080 --name qrcode-server qrcode-server:latest
+    docker run --rm -p 8080:8080 -p 80:8080 --name qrcode-server qrcode-server:latest
+
+### Running with custom configuration (with linux)
+
+Create a file named **application.properties** in a separate directory and cd into it. Add some custom config like:
+
+    server.port=9090
+    spring.mvc.servlet.path=/code-generator
+
+Now start the container with a new mount:  
+
+    docker run --rm -v "$PWD":/srv/config --name qrcode-server qrcode-server:latest
+
+The executable JAR inside the container exists at **/srv** and a new **config**-Directory will be mounted
+next to the JAR.
