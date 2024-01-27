@@ -65,3 +65,21 @@ Find more examples at https://zxing.appspot.com/generator/.
     }
 
 More informations about EPC-Code at https://en.wikipedia.org/wiki/EPC_QR_code
+
+## Instructions for Docker
+
+Current docker image can be downloaded from:
+
+https://hub.docker.com/r/fehrenbacher/qrcode-server
+
+### Building on your own
+
+A valid jar must exist in the target folder before building a docker image.
+
+1. Build the image with the following command:
+
+   docker image build -t   .
+
+2. If image is ready, start the server with:
+
+   docker run --rm -p 8080:8080 -p 80:8080 --name qrcode-server qrcode-server:latest
