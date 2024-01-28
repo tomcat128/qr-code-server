@@ -8,6 +8,8 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import de.fewobacher.constant.ErrorLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 @Service
 public class QrCodeService {
+    Logger logger = LoggerFactory.getLogger(QrCodeService.class);
 
     private ErrorCorrectionLevel mapErrorLevel(ErrorLevel el) {
         return switch (el) {
@@ -27,12 +30,16 @@ public class QrCodeService {
         };
     }
 
-    public BufferedImage createQR(  String data,
-                                    String path,
-                                    String charset,
-                                    ErrorLevel errorLevel,
-                                    int height, int width)
+    public BufferedImage createQR(String data,
+                                  String path,
+                                  String charset,
+                                  ErrorLevel errorLevel,
+                                  int width,
+                                  int height)
             throws WriterException, IOException {
+
+        logger.info("Creating new qr code with error level [{}], size [{}x{}] data [{}]",
+                errorLevel, width, height, data);
 
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap
                 = new HashMap<EncodeHintType,
