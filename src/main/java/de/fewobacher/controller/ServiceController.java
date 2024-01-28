@@ -1,8 +1,8 @@
 package de.fewobacher.controller;
 
 import com.google.zxing.WriterException;
-import de.fewobacher.service.QrCodeService;
 import de.fewobacher.model.RequestCodeModel;
+import de.fewobacher.service.QrCodeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +19,12 @@ import java.io.IOException;
 @Validated
 public class ServiceController
 {
+    final private static String CHARSET = "UTF-8";
+
+    final private static String OUTPUT_FORMAT = "PNG";
+
+    final private static String OUTPUT_FORMAT_MIME_TYPE = "image/png";
+
     private final QrCodeService service;
 
     public ServiceController(QrCodeService service)
@@ -31,15 +37,17 @@ public class ServiceController
     {
         BufferedImage bufferedImage = service.createQR(
                 request.getData(),
-                null,
-                "UTF-8",
+                CHARSET,
                 request.getErrorLevel(),
                 request.getImageSize(),
                 request.getImageSize());
 
         // Prepare output
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "PNG", bos);
-        return ResponseEntity.ok().header("Content-type", "image/png").body(bos.toByteArray());
+        ImageIO.write(bufferedImage, OUTPUT_FORMAT, bos);
+        return ResponseEntity
+                .ok()
+                .header("Content-type", OUTPUT_FORMAT_MIME_TYPE)
+                .body(bos.toByteArray());
     }
 }
