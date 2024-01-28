@@ -88,12 +88,12 @@ If image is ready, start the server with:
 
 Create a file named **application.properties** in a separate directory and cd into it. Add some custom config like:
 
-    server.port=9090
-    spring.mvc.servlet.path=/code-generator
+    security.basic-auth.username=someuser
+    security.basic-auth.password=changeit
 
 Now start the container with a new mount:  
 
     docker run --rm -v "$PWD":/srv/config --name qrcode-server qrcode-server:latest
 
 The executable JAR inside the container exists at **/srv** and a new **config**-Directory will be mounted
-next to the JAR.
+next to the JAR. The application will be secured by this external property file.
