@@ -34,10 +34,21 @@ public class CodeController
         this.service = service;
     }
 
+    /**
+     * This endpoint will convert a text message into an qr code
+     *
+     * @param text
+     * @param imageSize
+     * @param errorLevel
+     * @return test converted to qr code (ong)
+     * @throws IOException
+     * @throws WriterException
+     */
+
     @GetMapping("/text")
     public ResponseEntity<byte[]> textToQr(
             @RequestParam(name = "input") String text,
-            @RequestParam(name = "size") Optional<Integer> imageSize,
+            @RequestParam(name = "size", required = false) Optional<Integer> imageSize,
             @RequestParam(name = "el", required = false) Optional<ErrorLevel> errorLevel) throws IOException, WriterException
     {
 
@@ -56,4 +67,27 @@ public class CodeController
                 .header("Content-type", OUTPUT_FORMAT_MIME_TYPE)
                 .body(bos.toByteArray());
     }
+
+    /**
+     * This endpoint will create an wifi qr code with the given parameters
+     *
+     * @param ssid
+     * @param password
+     * @param imageSize
+     * @param errorLevel
+     * @return test converted to qr code (ong)
+     * @throws IOException
+     * @throws WriterException
+     */
+    @GetMapping("/wifi")
+    public ResponseEntity<byte[]> wifiToQr(
+            @RequestParam(name = "ssid") String text,
+            @RequestParam(name = "password") String password,
+            @RequestParam(name = "size", required = false) Optional<Integer> imageSize,
+            @RequestParam(name = "el", required = false) Optional<ErrorLevel> errorLevel) throws IOException, WriterException
+    {
+        return null;
+    }
+
+
 }
