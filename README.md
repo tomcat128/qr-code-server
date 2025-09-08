@@ -7,7 +7,7 @@ Based on ZXing Project: https://zxing.appspot.com/
 
 ## Requirements
 
-- Java 17
+- Java 21
 - Maven
 - Docker
 

@@ -1,4 +1,4 @@
-FROM amazoncorretto:17
+FROM amazoncorretto:21
 MAINTAINER Tomasz Fehrenbacher <admin@famifeh.de>
 COPY target/qr-server.jar /srv/app.jar
 WORKDIR /srv
