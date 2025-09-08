@@ -1,0 +1,32 @@
+###
+# @name Create QR-Code for an url
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "data": "https://www.ikea.com/de/de/",
+  "errorLevel": "MEDIUM",
+  "imageSize": 200
+}
+
+###
+# @name Create QR-Code for WiFi
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "data": "WIFI:S:Some_SSID;T:WPA;P:Some_Passphrase;;",
+  "errorLevel": "HIGH",
+  "imageSize": 400
+}
+
+###
+# @name Create EPC-QR-Code (Girocode)
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "data": "BCD\n001\n1\nSCT\nBFSWDE33BER\nWikimedia Foerdergesellschaft\nDE33100205000001194700\nEUR123.45\n\n\nSpende fuer Wikipedia\n",
+  "errorLevel": "MEDIUM",
+  "imageSize": 400
+}
